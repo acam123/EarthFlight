@@ -1,0 +1,91 @@
+/*
+*************************************************************
+EARTH FLIGHT
+This is a google earth based flight simuator game.
+The game is based off of the work done by David J. 
+Malan to make cs50's pset8 (or "Shuttle 50") 2013
+at Harvard University. 
+
+For Furtehr Inquiries Please Contact Developers at
+AidanCampbell@College.Harvard.Edu
+or AndyLi@College.Harvard.Edu
+
+-Aidan Campbell & Andy Li
+*************************************************************
+*/
+
+To set up: this game you must move this folder to your localhost 
+    (e.g. mv -r Final_Project2 ~/localhost). Once there you must
+    make sure the permissions are correct. To do so cd into the 
+    Final_Project2 directory and run the following commands 
+    (a la pset8's implementation):
+        find . -type f | xargs chmod 644
+        find . -type d | xargs chmod 711
+    These making everything respectively readable and executable 
+    by everyone. Lastly run "chmod 711" on your localhost directory
+    and any directories that localhost is located in up to and 
+    including the home directory "~" (e.g. chmod 711 ~/.../localhost; 
+    ... chmod 711 ~ ). 
+
+NOTE: This process may be different on different machines, but the
+    concept of altering the diecotry permissions and should still apply
+    though where you place Final_Project2 may be different from localhost.
+
+To get dependencies: You can download google earth from: 
+    "http://www.google.com/earth/explore/products/plugin.html", or 
+    go to view the game now simply open a browser and go to the url 
+    "http://your.ip.address/Final_Project2". You will see a screen that 
+    asks you to dowload google earth if you have not already done so, 
+    please click on the link and continue to download the plug-in, 
+    returning to the above mentioned page when done. 
+
+To play: once in the game you can play by using the controls listed below. 
+    Fly around and try to find all of the hoops. If you click the screen 
+    and the controls stop working, try clicking the start button. If that 
+    doesn't work, refresh the page. 
+
+Game Controls:
+    w: move forward
+    s: move back
+    d: slide right
+    a: slide left
+    c: change camera view/plane mode
+    up arrow: tilt up
+    down arrow: tilt down
+    left arrow: turn left
+    right arrow: turn right
+    space bar: increase altitude
+    shift: decrease altitude
+    
+NOTE: This game was made in the cs50 appliace using vmware on a macbook. 
+    The game was tested/played in firefox outside of the appliance
+    (with the appliance running to serve the website). Graphics work
+    best in full screen.  
+
+Game Credits:
+    Addittional thanks goes to Google and the wonderful
+    online documentation for google earth. 
+
+    The screen overlay code was taken from 
+    "http://code.google.com/apis/ajax/playground/
+    ?exp=earth#screen_overlay_%28frame%29", and the 
+    .dae model code based on code found from
+    "http://www.codeproject.com/Articles/190128/
+    Animating-Google-Earth-3D-Map-2D-for-Live-GPS-via" 
+
+    The music is a royalty free song, "Call to Adventure",
+    that can be found at "http://incompetech.com/music/
+    royalty-free/index.html?genre=Soundtrack"
+
+    The plane overlay was found at: 
+    "http://www.flylogicsoftware.com/site/en/products/FSX/
+    FSX_fly_Tiger_en/offen/3D_Cockpit_01.jpg", and edited
+    by Aidan Campbell. 
+
+    The plane model was downloaded from Google SketchUp's
+    3D Warehouse. Thanks Ivo Mikac for your "Scale model 
+    plane WWS-1 Salamandra".
+
+    The hoop model was created through Google SketchUp by
+    Aidan Campbell. 
+

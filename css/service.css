@@ -1,0 +1,101 @@
+/**
+ * service.css
+ *
+ * Computer Science 50
+ * Problem Set 8
+ *
+ * Global stylesheet.
+ */
+       
+body
+{
+    font-family: sans-serif;
+}
+
+
+#center
+{
+    height:100%;
+    width: 100%;
+    z-index: 1;
+    background:yellow;
+    
+  
+    
+   
+}
+
+#earth
+{
+    /*border: 5px black solid;*/
+    height:100%;
+    width:100%;    
+    margin:0;
+    
+    
+}
+
+#controls
+{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#instructions
+{
+    font-size: smaller;
+    text-align: center;
+    z-index: 4;
+    position: fixed; 
+    margin-top: 50%;
+    margin-left: 50%;
+}
+
+
+
+#logo
+{
+    font-size: 25px;
+    width:150px;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+    z-index:2;
+    top:10%;
+    position:fixed;
+    left:calc(50% - 75px);
+}
+
+#map
+{
+    height:18%;
+    z-index: 3;
+    position: absolute;
+    width: 20%;
+    margin-left: 42%;
+    margin-top: -12%;
+}
+
+#scoreboard
+{
+    font-size: 200%;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+    z-index: 5;
+    position: absolute;
+    margin-left: 89%;
+    margin-top: -39%;
+    
+}
+
+#top
+{
+
+    height: 20%;
+    width: 100%;
+    z-index: 2;
+    position: absolute; 
+    margin-top: -55%;
+}

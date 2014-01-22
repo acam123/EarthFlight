@@ -6,33 +6,33 @@
  *
  * Global stylesheet.
  */
-       
+html{
+    height:100%;
+    width:100%;
+   
+}       
 body
 {
     font-family: sans-serif;
-}
-
-
-#center
-{
     height:100%;
-    width: 100%;
-    z-index: 1;
-    background:yellow;
+    width:100%;
     
-  
-    
-   
 }
+
 
 #earth
 {
-    /*border: 5px black solid;*/
+    border: 5px black solid;
     height:100%;
     width:100%;    
     margin:0;
-    
-    
+}
+
+#shim{
+    height:100%;
+    width:100%;
+    position:fixed;
+    z-index:50;
 }
 
 #controls
@@ -46,7 +46,7 @@ body
 {
     font-size: smaller;
     text-align: center;
-    z-index: 4;
+    z-index: 20;
     position: fixed; 
     margin-top: 50%;
     margin-left: 50%;
@@ -67,26 +67,38 @@ body
     left:calc(50% - 75px);
 }
 
+#start-btn{
+    position:absolute;
+    height:10px;
+    width:15px;
+    bottom:33%;
+    left:calc(49% - 15px);
+    z-index:5;
+}
+
 #map
 {
     height:18%;
     z-index: 3;
     position: absolute;
     width: 20%;
-    margin-left: 42%;
-    margin-top: -12%;
+    left: 42%;
+    bottom:2%;
+    
 }
 
 #scoreboard
 {
-    font-size: 200%;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
-    color: red;
-    z-index: 5;
+    color:red;
+    z-index:10;
     position: absolute;
-    margin-left: 89%;
-    margin-top: -39%;
+    left: calc(89% - 25px);
+    top: 33%;
+    width:50px;
+    height:50px;
     
 }
 
@@ -99,3 +111,5 @@ body
     position: absolute; 
     margin-top: -55%;
 }
+
+

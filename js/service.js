@@ -283,26 +283,13 @@ function viewchange()
     // keep map centered on shuttle's marker
     var latlng = new google.maps.LatLng(shuttle.position.latitude, shuttle.position.longitude);
     map.setCenter(latlng);
-
+    
     var url = window.location.href.substring(0, (window.location.href.lastIndexOf("/")) + 1);
     
-    if (((shuttle.headingAngle * 180 / Math.PI) > 0) && ((shuttle.headingAngle * 180 / Math.PI )<= 90))
-    {
-        var deg = 0
-    }
-    else if (((shuttle.headingAngle * 180 / Math.PI) > 90) && ((shuttle.headingAngle * 180 / Math.PI )<= 180))
-    {
-        var deg = 3
-    }
-    else if (((shuttle.headingAngle * 180 / Math.PI) > 180) && ((shuttle.headingAngle * 180 / Math.PI )<= 270))
-    {
-        var deg = 2
-    }
-    else if (((shuttle.headingAngle * 180 / Math.PI) > 270) && ((shuttle.headingAngle * 180 / Math.PI )<= 360))
-    {
-        var deg = 1
-    }
-    planeicon.setIcon(url + "/img/rotations/aircraftsmall" + deg +".png");
+    // update plane icon 
+    degA = Math.round((shuttle.headingAngle * 180 / Math.PI + 2 ) / 5 ) * 5;
+    
+    planeicon.setIcon(url + "img/planes/aircraftsmall" + degA +".png");
     planeicon.setPosition(latlng);
    
 } 
@@ -322,7 +309,7 @@ function move_plane()
      loc.setLatLngAlt(shuttle.position.latitude -.0000025, shuttle.position.longitude + .0000025, shuttle.cameraAltitude);
      model.setLocation(loc);
      var orientation = earth.createOrientation('');
-     orientation.setHeading(shuttle.headingAngle * 180 / Math.PI -100);
+     orientation.setHeading(shuttle.headingAngle * 180 / Math.PI - 100);
      orientation.setTilt(0);
      orientation.setRoll(0);
      model.setOrientation(orientation);
@@ -441,7 +428,7 @@ function make_plane(url)
     var loc = earth.createLocation('');
     loc.setLatLngAlt(shuttle.position.latitude -.0000025, shuttle.position.longitude + .0000025, shuttle.cameraAltitude );
     var orientation = earth.createOrientation('');
-    orientation.setHeading(shuttle.headingAngle * 180 / Math.PI -100);
+    orientation.setHeading(shuttle.headingAngle * 180 / Math.PI - 100);
     orientation.setTilt(0);
     model.setOrientation(orientation);
     model.setLocation(loc);
@@ -512,8 +499,9 @@ function change_plane_mode(event)
         }
         else if (plane_view == 1)
         {
-            make_plane(url);
             earth.getFeatures().removeChild(screenOverlay);
+            make_plane(url);
+            
         }
         else 
         {
@@ -522,7 +510,7 @@ function change_plane_mode(event)
     }
 
 }  
-
+/* This function wraps the headingAngle around the limits of 0 and 360 degrees*/
 function angle_standard()
 {
      if (shuttle.headingAngle <= 0) 

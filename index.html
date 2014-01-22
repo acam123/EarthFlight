@@ -26,24 +26,23 @@ Framework for Flight Simulator.
     </head>
     
     <body>
-            <div id="center">
-                <div id="earth">
-                    <div id="logo">
-                    Earth Flight
-                    </div>
-                     <div id="instructions">
-                     </div>
-                    <button class="btn btn-success btn-xs" data-target="#modal" data-toggle="modal" id="start">
-                        Start Engine
-                    </button>
-            </div>    
-                </div>
+        <div id="earth">
+           
+            <div id="logo">
+                Earth Flight
+            </div>  
+            <div id="scoreboard">
+            </div>  
+            <div id="start-btn">
+               <button class="btn btn-success btn-xs" data-target="#modal" data-toggle="modal" id="start">
+                   Start Engine
+               </button>
             </div>
             <div id="map">        
             </div>
             
-            <div id="scoreboard">
-            </div>  
-     
+        </div>  
+        <div id="shim"> <!-- DON'T TOUCH, SOLVES CROSS BROWSER COMPATABILITY FOR GE API-->  
+        </div> 
     </body>
 </html>

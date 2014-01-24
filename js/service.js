@@ -20,7 +20,7 @@ var LONGITUDE = -71.11803936751632;
 var HEADING = 1.757197490907891;
 
 // default velocity
-var VELOCITY = 100;
+var VELOCITY = 0;
 
 // global reference to shuttle's marker on 2D map
 var planeicon = null;
@@ -43,6 +43,18 @@ var plane_view = 0;
 //initialize points
 var score = 0;
 
+//initial velocity multiplier
+var timePressed = 0;
+
+//initial forward velocity
+var forward = 0;
+
+//acceleration constant
+var accel = 1.001;
+
+//initialize forwardVelocity
+var forwardVelocity = 0;
+
 // load version 1 of the Google Earth API
 google.load("earth", "1");
 
@@ -54,12 +66,16 @@ $(window).load(function() {
 
     // listen for keydown anywhere in body
     $(document.body).keydown(function(event) {
-        change_plane_mode(event);     
+        change_plane_mode(event);    
         return keystroke(event, true);
     });
 
     // listen for keyup anywhere in body
     $(document.body).keyup(function(event) {
+        if (event.keyCode == 87 || event.keyCode == 119)
+        {      
+            drag();  
+        }
         return keystroke(event, false);
     });
 
@@ -124,7 +140,7 @@ function initCB(instance)
         latitude: LATITUDE,
         longitude: LONGITUDE,
         planet: earth,
-        velocity: VELOCITY
+        velocity: VELOCITY 
     });
 
     // synchronize camera with Earth
@@ -154,6 +170,7 @@ function keystroke(event, state)
     {
         event = window.event;
     }
+    
 
     // left arrow
     if (event.keyCode == 37)
@@ -229,7 +246,7 @@ function keystroke(event, state)
         shuttle.states.flyingDownward = state;
         return false;
     }
-    
+         
     return true;
 }
 
@@ -415,7 +432,6 @@ function make_hoops(url)
 
 function make_plane(url)
 {
-     
     // Create a 3D model, initialize it from a Collada file, and place it in the world.
     placemark = earth.createPlacemark('');
     placemark.setName('Plane');
@@ -522,3 +538,13 @@ function angle_standard()
             shuttle.headingAngle = 0;
         }    
 }
+
+function drag() 
+{
+    forward -= 0.05;
+    if (forward > 0)
+    {
+        setTimeout(function () {drag()}, 100); 
+            
+    }
+} 

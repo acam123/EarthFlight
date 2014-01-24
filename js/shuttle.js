@@ -11,6 +11,7 @@
 /**
  * Encapsulates a shuttle.
  */
+  
 function Shuttle(config)
 {
     // shuttle's position
@@ -203,15 +204,35 @@ Shuttle.prototype.updatePosition = function(dt)
         }
         strafe = strafeVelocity * dt;
     }  
-    var forward = 0;                             
+
     if (this.states.movingForward || this.states.movingBackward)
     {
-        var forwardVelocity = this.velocity;
+       
+        
         if (this.states.movingBackward)
         {
-            forwardVelocity *= -1;
+            direction = -0.05;
         }
-        forward = forwardVelocity * dt;
+        else if (this.states.movingForward)
+        {
+            direction = 0.05;
+        }
+
+        
+        forwardVelocity += direction;
+        
+        if (forwardVelocity <= 0)
+        {
+            forwardVelocity = 0;
+        }
+        else if (forwardVelocity >= 20)
+        {
+            forwardVelocity = 20;
+        }
+
+
+        
+        forward = forwardVelocity; //forward is speed that gets combined with heading angle to change position, maybe need to initialize
     }  
     if (this.states.flyingUpward) 
     {

@@ -9,11 +9,13 @@
 html{
     height:100%;
     width:100%;
+    color:#555;
+    text-shadow: 0px 2px 3px #222;
    
 }       
 body
 {
-    font-family: sans-serif;
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
     height:100%;
     width:100%;
     
@@ -57,14 +59,13 @@ body
 #logo
 {
     font-size: 25px;
-    width:150px;
+    width:200px;
     font-weight: bold;
     text-align: center;
-    color: red;
     z-index:2;
     top:10%;
     position:fixed;
-    left:calc(50% - 75px);
+    left:calc(50% - 100px);
 }
 
 #start-btn{
@@ -91,11 +92,10 @@ body
 {
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
-    color:red;
     z-index:10;
+    color:white;
     position: absolute;
-    left: calc(89% - 25px);
+    left: calc(91% - 25px);
     top: 33%;
     width:50px;
     height:50px;

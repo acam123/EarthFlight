@@ -72,9 +72,25 @@ $(window).load(function() {
 
     // listen for keyup anywhere in body
     $(document.body).keyup(function(event) {
+        // w not pressed
         if (event.keyCode == 87 || event.keyCode == 119)
         {      
+            forwardVelocity = 0;
             drag();  
+        }
+        // s not pressed
+        else if (event.keyCode == 83 || event.keyCode == 115)
+        {
+            forwardVelocity = 0;
+        }
+        // up and down arrow not pressed
+        if (shuttle.rollAngle != 0 )
+        {
+            if (event.keyCode == 38 || event.keyCode == 40)
+            {
+                rollReturn();
+               
+            }
         }
         return keystroke(event, false);
     });
@@ -219,17 +235,13 @@ function keystroke(event, state)
     else if (event.keyCode == 83 || event.keyCode == 115)
     {
         shuttle.states.movingBackward = state; 
-        var direction = "backward";
         return false;
     }
 
     // W, w
     else if (event.keyCode == 87 || event.keyCode == 119)
     {
-       // move_plane();
         shuttle.states.movingForward = state;
-        var direction = "forward";
-    //    force(direction); 
         return false;
     }
     
@@ -326,9 +338,9 @@ function move_plane()
      loc.setLatLngAlt(shuttle.position.latitude -.0000025, shuttle.position.longitude + .0000025, shuttle.cameraAltitude);
      model.setLocation(loc);
      var orientation = earth.createOrientation('');
-     orientation.setHeading(shuttle.headingAngle * 180 / Math.PI - 100);
+     orientation.setHeading(shuttle.headingAngle * 180 / Math.PI - 90);
      orientation.setTilt(0);
-     orientation.setRoll(0);
+     orientation.setRoll(shuttle.rollAngle);
      model.setOrientation(orientation);
 }
 
@@ -539,12 +551,49 @@ function angle_standard()
         }    
 }
 
+/* this function slows down the plane after w has been released; 
+this should parallel the forward thrust more and incorporate 
+direction to include support for s key as back */
+
 function drag() 
 {
-    forward -= 0.05;
     if (forward > 0)
     {
-        setTimeout(function () {drag()}, 100); 
-            
+        forward -= 0.05;
+    }
+    
+    if (forward > 0)
+    {
+        setTimeout(function () {drag()}, 100);      
+    }
+    
+    if (forward < 0) 
+    {
+        forward = 0;
     }
 } 
+
+function rollReturn()
+{ 
+    
+    if (shuttle.rollAngle >= 0.3)
+    {
+        shuttle.rollAngle -= 0.2;
+      //  shuttle.cameraAltitude +=1;
+        setTimeout(function () {rollReturn()}, 30);
+    }
+    else if (shuttle.rollAngle <= 0.2)
+    {
+        shuttle.rollAngle += 0.3;
+       // shuttle.cameraAltitude -=1;
+        setTimeout(function () {rollReturn()}, 30);  
+    }
+    else
+    {
+        shuttle.rollAngle = 0;
+    }
+
+   
+  
+    
+}

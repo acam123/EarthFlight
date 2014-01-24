@@ -8,11 +8,13 @@ at Harvard University.
 
 For Furtehr Inquiries Please Contact Developers at
 AidanCampbell@College.Harvard.Edu
-or AndyLi@College.Harvard.Edu
 
--Aidan Campbell & Andy Li
+http://github.com/acam123/EarthFlight
+A stable version is up at earthflight.herokuapp.com
+
+-Aidan Campbell
 *************************************************************
-*/
+*/THIS IS AN OLD DOCUMENTATION FOR SCHOOL
 
 To set up: this game you must move this folder to your localhost 
     (e.g. mv -r Final_Project2 ~/localhost). Once there you must

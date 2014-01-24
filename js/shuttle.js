@@ -55,6 +55,9 @@ function Shuttle(config)
     // heading angle and tilt angle are relative to local frame
     this.headingAngle = config.heading;
     this.tiltAngle = 0;
+    
+    // initial roll angle
+    this.rollAngle = 0;
 
     // initialize time
     this.lastMillis = (new Date()).getTime();  
@@ -154,26 +157,17 @@ Shuttle.prototype.updateOrientation = function(dt)
         }
         this.headingAngle += turnSpeed * dt * Math.PI / 180.0;
     }
-    if (this.states.tiltingUpward || this.states.tiltingDownward)
+    if (this.states.tiltingDownward)
     {
-        var tiltSpeed = 60.0; // degrees/sec
-        if (this.states.tiltingDownward)
-        {
-            tiltSpeed *= -1.0;
-        }
-        this.tiltAngle = this.tiltAngle + tiltSpeed * dt * Math.PI / 180.0;
-
-        // Clamp
-        var tiltMax = 60.0 * Math.PI / 180.0;
-        var tiltMin = -90.0 * Math.PI / 180.0;
-        if (this.tiltAngle > tiltMax)
-        {
-            this.tiltAngle = tiltMax;
-        }
-        if (this.tiltAngle < tiltMin)
-        {
-            this.tiltAngle = tiltMin;
-        }
+        shuttle.rollAngle -= 1;
+        shuttle.cameraAltitude -=1;
+    } 
+    
+    if (this.states.tiltingUpward)
+    {
+    
+        shuttle.rollAngle += 1;
+        shuttle.cameraAltitude +=1;
     }
 }
 
@@ -195,44 +189,28 @@ Shuttle.prototype.updatePosition = function(dt)
 
     // Calculate strafe/forwards                             
     var strafe = 0;                             
-    if (this.states.slidingLeftward || this.states.slidingRightward) 
-    {
-        var strafeVelocity = this.velocity / 2;
-        if (this.states.slidingLeftward)
-        {
-            strafeVelocity *= -1;      
-        }
-        strafe = strafeVelocity * dt;
-    }  
 
     if (this.states.movingForward || this.states.movingBackward)
     {
-       
-        
         if (this.states.movingBackward)
         {
-            direction = -0.05;
+            forwardVelocity -= 0.005;
         }
         else if (this.states.movingForward)
         {
-            direction = 0.05;
+            forwardVelocity += 0.005;
         }
-
         
-        forwardVelocity += direction;
-        
-        if (forwardVelocity <= 0)
+        forward += forwardVelocity; //forward is speed that gets combined with heading angle to change position, maybe need to initialize
+    
+        if (forward <= 0)
         {
-            forwardVelocity = 0;
+            forward = 0;
         }
-        else if (forwardVelocity >= 20)
+        else if (forward >= 20)
         {
-            forwardVelocity = 20;
+            forward = 20;
         }
-
-
-        
-        forward = forwardVelocity; //forward is speed that gets combined with heading angle to change position, maybe need to initialize
     }  
     if (this.states.flyingUpward) 
     {

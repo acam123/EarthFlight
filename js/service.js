@@ -8,7 +8,7 @@
  */
 
 // default height
-var HEIGHT = 0.8;
+var HEIGHT = 0.008;
 
 // default latitude
 var LATITUDE = 42.3745615030193;
@@ -55,6 +55,12 @@ var accel = 1.001;
 //initialize forwardVelocity
 var forwardVelocity = 0;
 
+//initialize threshold of forward speed for lift
+var  speedThreshold = 10;
+
+//initialize song state, on
+var songState;
+
 // load version 1 of the Google Earth API
 google.load("earth", "1");
 
@@ -92,6 +98,20 @@ $(window).load(function() {
                
             }
         }
+        //m,M
+        if (event.keyCode == 77)
+        {
+            songState = document.getElementById('music').muted;
+            
+            if (songState == false)
+            {
+                document.getElementById('music').muted = true;
+            }
+            else if (songState == true)
+            {
+                document.getElementById('music').muted = false;
+            }
+        }
         return keystroke(event, false);
     });
 
@@ -127,6 +147,7 @@ function frameend()
     shuttle.update();
     pickup();
     move_plane();
+    gravity();
 }
 
 /**
@@ -258,6 +279,7 @@ function keystroke(event, state)
         shuttle.states.flyingDownward = state;
         return false;
     }
+    
          
     return true;
 }
@@ -344,22 +366,6 @@ function move_plane()
      model.setOrientation(orientation);
 }
 
-/*function force(direction)
-{
-    if (direction == "forward")
-    {
-        FORCE += 1; 
-    }
-    else if (direction == "backward")
-    {
-        FORCE -= 1; 
-    }
-    
-    var lookAt = earth.getView().copyAsLookAt(earth.ALTITUDE_RELATIVE_TO_GROUND);
-    lookAt.setLatitude(lookAt.getLatitude() + FORCE);
-    lookAt.setLongitude(lookAt.getLongitude() + 0);
-    earth.getView().setAbstractView(lookAt);
-}*/
 
 function make_overlay(url)
 {
@@ -581,15 +587,15 @@ you stop pressing the arrow keys with a bit of fancy animation
 function rollReturn()
 { 
     
-    if (shuttle.rollAngle >= 0.3)
+    if (shuttle.rollAngle >= 0.5)
     {
-        shuttle.rollAngle -= 0.2;
+        shuttle.rollAngle -= 0.4;
         shuttle.cameraAltitude += 0.5;
         setTimeout(function () {rollReturn()}, 30);
     }
-    else if (shuttle.rollAngle <= -0.3)
+    else if (shuttle.rollAngle <= -0.5)
     {
-        shuttle.rollAngle += 0.2;
+        shuttle.rollAngle += 0.4;
         shuttle.cameraAltitude -= 0.5;
         setTimeout(function () {rollReturn()}, 30);  
     }
@@ -597,5 +603,22 @@ function rollReturn()
     {
         shuttle.rollAngle = 0;
     }
-    
+}
+
+function gravity ()
+{
+    if (forward < speedThreshold)
+    {
+        if (shuttle.cameraAltitude > HEIGHT)
+        {
+            shuttle.cameraAltitude -= (22 - forward) / 50  ;
+            gravityCount++;
+            console.log(shuttle.cameraAltitude);
+            setTimeout(function () {gravity()},1000);
+        }
+    }
+    else
+    {
+        gravityCount = 1;
+    }
 }

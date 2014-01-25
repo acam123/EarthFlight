@@ -157,35 +157,32 @@ Shuttle.prototype.updateOrientation = function(dt)
         }
         this.headingAngle += turnSpeed * dt * Math.PI / 180.0;
     }
-    if (this.states.tiltingDownward)
+    if (this.states.tiltingDownward) // maybe more restrictions like when touching ground
     {
-        if (this.rollAngle >= -20)
+        if( shuttle.cameraAltitude > HEIGHT)
         {
-            this.rollAngle -= 1; 
+            if (this.rollAngle >= -20)
+            {
+                this.rollAngle -= 1; 
+            }
+            
+            this.cameraAltitude -=1;
         }
-        
-        this.cameraAltitude -=1;
     } 
     
     if (this.states.tiltingUpward)
     {
-    
-        if (this.rollAngle <= 20)
+        // only allow lift if fast enough
+        if (forward >= speedThreshold)
         {
-            this.rollAngle += 1;
+            if (this.rollAngle <= 10)
+            {
+                this.rollAngle += 1;
+            }
+            this.cameraAltitude +=1;
         }
-        
-        this.cameraAltitude +=1;
     }
-    
-    if (this.rollAngle > 20)
-    {
-        this.rollAngle = 20;
-    }
-    else if (this.rollAngle < -20)
-    {
-        this.rollAngle = -20;
-    }
+   
 }
 
 /**

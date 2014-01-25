@@ -55,8 +55,6 @@ function Shuttle(config)
     // heading angle and tilt angle are relative to local frame
     this.headingAngle = config.heading;
     this.tiltAngle = 0;
-    
-    // initial roll angle
     this.rollAngle = 0;
 
     // initialize time
@@ -136,7 +134,7 @@ Shuttle.prototype.updateCamera = function()
         this.cameraAltitude, 
         this.planet.ALTITUDE_RELATIVE_TO_GROUND,
         heading,
-        this.tiltAngle * 180 / Math.PI + 120, /* tilt */
+        90,//tilt anglethis.tiltAngle * 180 / Math.PI + 120, /* tilt */
         0 /* altitude is constant */
     );  
     this.planet.getView().setAbstractView(la);         

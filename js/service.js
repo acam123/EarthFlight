@@ -361,7 +361,7 @@ function move_plane()
      model.setLocation(loc);
      var orientation = earth.createOrientation('');
      orientation.setHeading(shuttle.headingAngle * 180 / Math.PI - 90);
-     orientation.setTilt(0);
+     orientation.setTilt(shuttle.tiltAngle);
      orientation.setRoll(shuttle.rollAngle);
      model.setOrientation(orientation);
 }
@@ -612,8 +612,15 @@ function gravity ()
     {
         if (shuttle.cameraAltitude > HEIGHT)
         {
-            shuttle.cameraAltitude -= (22 - forward) / 50  ;
-          //  shuttle.rollAngle -= 0.8;
+            shuttle.cameraAltitude -= (22 - forward) / 50 ;
+            if ( shuttle.rollAngle > -30)
+            {
+                shuttle.rollAngle -= 0.8;
+            }
+            else
+            {
+                shuttle.headingAngle -= 0.5;
+            }
             setTimeout(function () {gravity()},1000);
         }
     }

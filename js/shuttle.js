@@ -229,11 +229,11 @@ Shuttle.prototype.updatePosition = function(dt)
     }  
     if (this.states.flyingUpward) 
     {
-        this.cameraAltitude += 1.0;
+        this.cameraAltitude += 2.0;
     }
     else if (this.states.flyingDownward) 
     {
-        this.cameraAltitude -= 1.0;
+        this.cameraAltitude -= 2.0;
     }
     this.cameraAltitude = Math.max(this.height, this.cameraAltitude);
   

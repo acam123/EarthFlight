@@ -62,10 +62,13 @@ var  speedThreshold = 10;
 var songState;
 
 //initialize timer
-var timeLeft = 10;
+var timeLeft = 60;
 
 //initialize total hoops
 var totalHoops = 0;
+
+// initialize started to only start clock once
+var started = 0;
 
 // load version 1 of the Google Earth API
 google.load("earth", "1");
@@ -123,9 +126,6 @@ $(window).load(function() {
 
     // load application
     load();
-    
-    // start Timer
-    timer();
 });
 
 // unload application
@@ -272,6 +272,12 @@ function keystroke(event, state)
     else if (event.keyCode == 87 || event.keyCode == 119)
     {
         shuttle.states.movingForward = state;
+         // start Timer
+        if (started == 0)
+        { 
+            started++;
+            timer();
+        }
         return false;
     }
     
@@ -514,10 +520,13 @@ function pickup()
                 }
                 
                 // check for remaining hoops
-                if (score = totalHoops)
+                if (score == totalHoops)
                 {
                     unload();
-                    $('#results').text("YOU WON!!!");
+                    $('#message').text("YOU WON!!!");
+                    var question = document.getElementById('question');
+                    question.innerHTML = '<a href=".">PLAY Again?</a>';
+                    
                 }   
             }
         } 
@@ -654,6 +663,8 @@ function timer ()
     else
     {
         unload();
-        $('#results').text("SORRY, YOU RAN OUT OF TIME ):");
+        $('#message').text("SORRY, YOU RAN OUT OF TIME ):");
+        var question = document.getElementById('question');
+        question.innerHTML = '<a href=".">PLAY Again?</a>';
     }
 }

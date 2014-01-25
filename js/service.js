@@ -61,6 +61,12 @@ var  speedThreshold = 10;
 //initialize song state, on
 var songState;
 
+//initialize timer
+var timeLeft = 10;
+
+//initialize total hoops
+var totalHoops = 0;
+
 // load version 1 of the Google Earth API
 google.load("earth", "1");
 
@@ -117,6 +123,9 @@ $(window).load(function() {
 
     // load application
     load();
+    
+    // start Timer
+    timer();
 });
 
 // unload application
@@ -445,6 +454,7 @@ function make_hoops(url)
         HOOPS[i]["marker"] = marker;
         HOOPS[i]["placemark"] = placemark;
         
+        totalHoops += 1;
         //set hoops's status
     }   HOOPS[i]["status"] = "incomplete";
 }
@@ -474,7 +484,7 @@ function make_plane(url)
 
 function pickup()
 {
-      if (shuttle.cameraAltitude >= HOOPS[0]["alt"] - 2 && shuttle.cameraAltitude <= HOOPS[0]["alt"] + 2)
+    if (shuttle.cameraAltitude >= HOOPS[0]["alt"] - 2 && shuttle.cameraAltitude <= HOOPS[0]["alt"] + 2)
     {
         // for each HOOP
         for (var i = 0; i < HOOPS.length; i++)
@@ -502,9 +512,16 @@ function pickup()
                     score++;
                     $('#scoreboard').text(score);
                 }
+                
+                // check for remaining hoops
+                if (score = totalHoops)
+                {
+                    unload();
+                    $('#results').text("YOU WON!!!");
+                }   
             }
         } 
-    }   
+    }
 }  
 
 /* This function alters the plane view mode with the c button */
@@ -623,5 +640,20 @@ function gravity ()
             }
             setTimeout(function () {gravity()},1000);
         }
+    }
+}
+
+function timer ()
+{
+    if (timeLeft > 0)
+    {
+        timeLeft -= 1;
+        $('#timer').text(timeLeft);
+        setTimeout(function () {timer()}, 1000); 
+    }
+    else
+    {
+        unload();
+        $('#results').text("SORRY, YOU RAN OUT OF TIME ):");
     }
 }

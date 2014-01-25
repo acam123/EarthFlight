@@ -134,7 +134,7 @@ Shuttle.prototype.updateCamera = function()
         this.cameraAltitude, 
         this.planet.ALTITUDE_RELATIVE_TO_GROUND,
         heading,
-        90,//tilt anglethis.tiltAngle * 180 / Math.PI + 120, /* tilt */
+        90,//tilt anglethis.tiltAngle * 180 / Math.PI + 120, /* tilt */ //maybe we should put this back in  
         0 /* altitude is constant */
     );  
     this.planet.getView().setAbstractView(la);         

@@ -344,7 +344,7 @@ function move_plane()
      model.setOrientation(orientation);
 }
 
-function force(direction)
+/*function force(direction)
 {
     if (direction == "forward")
     {
@@ -359,7 +359,7 @@ function force(direction)
     lookAt.setLatitude(lookAt.getLatitude() + FORCE);
     lookAt.setLongitude(lookAt.getLongitude() + 0);
     earth.getView().setAbstractView(lookAt);
-}
+}*/
 
 function make_overlay(url)
 {
@@ -500,6 +500,7 @@ function pickup()
     }   
 }  
 
+/* This function alters the plane view mode with the c button */
 function change_plane_mode(event)
 {
     // ensure we have event
@@ -573,27 +574,28 @@ function drag()
     }
 } 
 
+/* This function returns the roll Angle after 
+you stop pressing the arrow keys with a bit of fancy animation
+
+*/
 function rollReturn()
 { 
     
     if (shuttle.rollAngle >= 0.3)
     {
         shuttle.rollAngle -= 0.2;
-      //  shuttle.cameraAltitude +=1;
+        shuttle.cameraAltitude += 0.5;
         setTimeout(function () {rollReturn()}, 30);
     }
-    else if (shuttle.rollAngle <= 0.2)
+    else if (shuttle.rollAngle <= -0.3)
     {
-        shuttle.rollAngle += 0.3;
-       // shuttle.cameraAltitude -=1;
+        shuttle.rollAngle += 0.2;
+        shuttle.cameraAltitude -= 0.5;
         setTimeout(function () {rollReturn()}, 30);  
     }
     else
     {
         shuttle.rollAngle = 0;
     }
-
-   
-  
     
 }

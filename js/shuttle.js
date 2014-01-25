@@ -159,15 +159,32 @@ Shuttle.prototype.updateOrientation = function(dt)
     }
     if (this.states.tiltingDownward)
     {
-        shuttle.rollAngle -= 1;
-        shuttle.cameraAltitude -=1;
+        if (this.rollAngle >= -20)
+        {
+            this.rollAngle -= 1; 
+        }
+        
+        this.cameraAltitude -=1;
     } 
     
     if (this.states.tiltingUpward)
     {
     
-        shuttle.rollAngle += 1;
-        shuttle.cameraAltitude +=1;
+        if (this.rollAngle <= 20)
+        {
+            this.rollAngle += 1;
+        }
+        
+        this.cameraAltitude +=1;
+    }
+    
+    if (this.rollAngle > 20)
+    {
+        this.rollAngle = 20;
+    }
+    else if (this.rollAngle < -20)
+    {
+        this.rollAngle = -20;
     }
 }
 

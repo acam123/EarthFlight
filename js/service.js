@@ -369,17 +369,18 @@ function move_plane()
 
 function make_overlay(url)
 {
-     // Create the ScreenOverlay
-     screenOverlay = earth.createScreenOverlay('');
+     
+    // Create the ScreenOverlay
+    screenOverlay = earth.createScreenOverlay('');
 
     // Specify a path to the image and set as the icon
-    var icon = earth.createIcon('');
-    //icon.setHref('http://earth-api-samples.googlecode.com/svn/trunk/examples/static/frame.png'); 
+    cockpitIcon = earth.createIcon('');
+     //icon.setHref('http://earth-api-samples.googlecode.com/svn/trunk/examples/static/frame.png'); 
     //icon.setHref(url + "/img/frame.png");
     //icon.setHref('http://comps.fotosearch.com/comp/CSP/CSP990/metal-window-frame_~k11514638.jpg');
     //icon.setHref(url + "/img/plane2.png");
-    icon.setHref(url + "/img/cockpit.png");
-    screenOverlay.setIcon(icon);
+    cockpitIcon.setHref(url + "/img/3D_Cockpit_01.png");
+    screenOverlay.setIcon(cockpitIcon);
 
     // Set the ScreenOverlay's position in the window
     screenOverlay.getOverlayXY().setXUnits(earth.UNITS_FRACTION);
@@ -612,13 +613,8 @@ function gravity ()
         if (shuttle.cameraAltitude > HEIGHT)
         {
             shuttle.cameraAltitude -= (22 - forward) / 50  ;
-            gravityCount++;
-            console.log(shuttle.cameraAltitude);
+          //  shuttle.rollAngle -= 0.8;
             setTimeout(function () {gravity()},1000);
         }
-    }
-    else
-    {
-        gravityCount = 1;
     }
 }

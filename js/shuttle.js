@@ -150,12 +150,15 @@ Shuttle.prototype.updateOrientation = function(dt)
     // Based on dt and input press, update turn angle.
     if (this.states.turningLeftward || this.states.turningRightward)
     {
-        var turnSpeed = 60.0; // degrees/sec
-        if (this.states.turningLeftward)
+        if (forward > 0)
         {
-            turnSpeed *= -1.0;
+            var turnSpeed = 60.0; // degrees/sec
+            if (this.states.turningLeftward)
+            {
+                turnSpeed *= -1.0;
+            }
+            this.headingAngle += turnSpeed * dt * Math.PI / 180.0;
         }
-        this.headingAngle += turnSpeed * dt * Math.PI / 180.0;
     }
     if (this.states.tiltingDownward) // maybe more restrictions like when touching ground
     {

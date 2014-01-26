@@ -62,10 +62,11 @@ body
     width:200px;
     font-weight: bold;
     text-align: center;
-    z-index:2;
+    z-index:1;
     top:10%;
     position:fixed;
     left:calc(50% - 100px);
+    opacity:0.6;
 }
 
 #start-btn{

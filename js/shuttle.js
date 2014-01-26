@@ -150,12 +150,27 @@ Shuttle.prototype.updateOrientation = function(dt)
     {
         if (forward > 0)
         {
+            var turnSide = -1;
+            
             var turnSpeed = 60.0; // degrees/sec
             if (this.states.turningLeftward)
             {
                 turnSpeed *= -1.0;
+                turnSide = 1;
             }
             this.headingAngle += turnSpeed * dt * Math.PI / 180.0;
+            
+            //add in plane lean when turning
+            this.tiltAngle += turnSide;
+            
+            if (this.tiltAngle > 20 ) 
+            {
+                this.tiltAngle = 20;
+            }
+            else if (this.tiltAngle < -20)
+            {
+                 this.tiltAngle = -20;
+            }
         }
     }
     if (this.states.tiltingDownward) // maybe more restrictions like when touching ground
@@ -167,7 +182,7 @@ Shuttle.prototype.updateOrientation = function(dt)
                 this.rollAngle -= 1; 
             }
             
-            this.cameraAltitude -=1;
+            this.cameraAltitude += (this.rollAngle / 2); //tweak
         }
     } 
     
@@ -180,7 +195,13 @@ Shuttle.prototype.updateOrientation = function(dt)
             {
                 this.rollAngle += 1;
             }
-            this.cameraAltitude +=1;
+            
+            this.cameraAltitude += (this.rollAngle / 2); // matches above 
+            
+            if (this.cameraAltitude >= 30)
+            {
+                this.cameraAltitude = 30;
+            }
         }
     }
    
@@ -227,7 +248,7 @@ Shuttle.prototype.updatePosition = function(dt)
             forward = 20;
         }
     }  
-    if (this.states.flyingUpward) 
+  /*  if (this.states.flyingUpward) 
     {
         this.cameraAltitude += 2.0;
     }
@@ -235,7 +256,7 @@ Shuttle.prototype.updatePosition = function(dt)
     {
         this.cameraAltitude -= 2.0;
     }
-    this.cameraAltitude = Math.max(this.height, this.cameraAltitude);
+    this.cameraAltitude = Math.max(this.height, this.cameraAltitude); */
   
     // remember distance traveled
     this.distanceTraveled += forward;

@@ -56,7 +56,7 @@ var accel = 1.001;
 var forwardVelocity = 0;
 
 //initialize threshold of forward speed for lift
-var  speedThreshold = 10;
+var  speedThreshold = 1;
 
 //initialize song state, on
 var songState;
@@ -69,6 +69,9 @@ var totalHoops = 0;
 
 // initialize started to only start clock once
 var started = 0;
+
+// initialized height max
+var heightMax = 40;
 
 // load version 1 of the Google Earth API
 google.load("earth", "1");
@@ -107,6 +110,15 @@ $(window).load(function() {
                
             }
         }
+        // left and right not pressed
+        if (event.keyCode == 37 || event.keyCode == 39)
+        {
+            if (shuttle.tiltAngle != 0)
+            {
+                tiltReturn();
+            }
+        }
+        
         //m,M
         if (event.keyCode == 77)
         {
@@ -629,6 +641,20 @@ function rollReturn()
     else
     {
         shuttle.rollAngle = 0;
+    }
+}
+
+function tiltReturn()
+{
+    if (shuttle.tiltAngle > 0 )
+    {
+        shuttle.tiltAngle -= 1;
+        setTimeout(function () {tiltReturn()},30);
+    }
+    else if (shuttle.tiltAngle < 0)
+    {
+        shuttle.tiltAngle += 1;
+        setTimeout(function () {tiltReturn()},30);
     }
 }
 
